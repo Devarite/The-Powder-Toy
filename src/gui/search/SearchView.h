@@ -12,6 +12,7 @@ namespace ui
 	class Button;
 	class Label;
 	class Spinner;
+	class ProgressBar;
 	class Textbox;
 }
 
@@ -36,7 +37,7 @@ private:
 	ui::RichLabel * motdLabel = nullptr;
 	ui::Button * sortButton;
 	ui::Button * ownButton;
-	ui::Spinner * loadingSpinner;
+	ui::ProgressBar * loadingSlider;
 
 	ui::Button * removeSelected;
 	ui::Button * unpublishSelected;

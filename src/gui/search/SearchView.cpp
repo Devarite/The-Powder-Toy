@@ -12,7 +12,7 @@
 #include "gui/interface/Label.h"
 #include "gui/interface/RichLabel.h"
 #include "gui/interface/Textbox.h"
-#include "gui/interface/Spinner.h"
+#include "gui/interface/ProgressBar.h"
 
 #include "PowderToy.h"
 #include "Config.h"
@@ -36,8 +36,8 @@ SearchView::SearchView():
 
 	Client::Ref().AddListener(this);
 
-	nextButton = new ui::Button(ui::Point(WINDOWW-52, WINDOWH-18), ui::Point(50, 16), String("Next ") + 0xE015);
-	previousButton = new ui::Button(ui::Point(2, WINDOWH-18), ui::Point(50, 16), 0xE016 + String(" Prev"));
+	nextButton = new ui::Button(ui::Point(WINDOWW-22, WINDOWH-18), ui::Point(20, 16), 0xE015);
+	previousButton = new ui::Button(ui::Point(2, WINDOWH-18), ui::Point(20, 16), 0xE016);
 	tagsLabel  = new ui::Label(ui::Point(270, WINDOWH-18), ui::Point(WINDOWW-540, 16), "\boPopular Tags:");
 	try
 	{
@@ -56,7 +56,7 @@ SearchView::SearchView():
 	AddComponent(pageCountLabel);
 	AddComponent(pageTextbox);
 
-	searchField = new ui::Textbox(ui::Point(60, 10), ui::Point(WINDOWW-238, 17), "", "[search]");
+	searchField = new ui::Textbox(ui::Point(60, 10), ui::Point(WINDOWW-238, 17), "", "Search:");
 	searchField->Appearance.icon = IconSearch;
 	searchField->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	searchField->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
@@ -111,8 +111,8 @@ SearchView::SearchView():
 	AddComponent(previousButton);
 	AddComponent(searchField);
 
-	loadingSpinner = new ui::Spinner(ui::Point((WINDOWW/2)-12, (WINDOWH/2)+12), ui::Point(24, 24));
-	AddComponent(loadingSpinner);
+	loadingSlider = new ui::ProgressBar(ui::Point((WINDOWW/2)-154/2, (WINDOWH/2)+12), ui::Point(154, 24), 0);
+	AddComponent(loadingSlider);
 
 	ui::Label * searchPrompt = new ui::Label(ui::Point(10, 10), ui::Point(50, 16), "Search:");
 	searchPrompt->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
@@ -499,7 +499,7 @@ void SearchView::NotifySaveListChanged(SearchModel * sender)
 	}
 	if (!saves.size())
 	{
-		loadingSpinner->Visible = false;
+		loadingSlider->Visible = false;
 		if (!errorLabel)
 		{
 			errorLabel = new ui::Label(ui::Point((WINDOWW/2)-100, (WINDOWH/2)-6), ui::Point(200, 12), "Error");
@@ -508,7 +508,7 @@ void SearchView::NotifySaveListChanged(SearchModel * sender)
 		if (!sender->GetSavesLoaded())
 		{
 			errorLabel->SetText("Loading...");
-			loadingSpinner->Visible = true;
+			loadingSlider->Visible = true;
 		}
 		else
 		{
@@ -520,7 +520,7 @@ void SearchView::NotifySaveListChanged(SearchModel * sender)
 	}
 	else
 	{
-		loadingSpinner->Visible = false;
+		loadingSlider->Visible = false;
 		if (errorLabel)
 		{
 			RemoveComponent(errorLabel);
@@ -574,8 +574,7 @@ void SearchView::NotifySaveListChanged(SearchModel * sender)
 			});
 			if(Client::Ref().GetAuthUser().UserID)
 				saveButton->SetSelectable(true);
-			if (saves[i]->GetUserName() == Client::Ref().GetAuthUser().Username || Client::Ref().GetAuthUser().UserElevation == User::ElevationAdmin || Client::Ref().GetAuthUser().UserElevation == User::ElevationModerator)
-				saveButton->SetShowVotes(true);
+			saveButton->SetShowVotes(true);
 			saveButtons.push_back(saveButton);
 			AddComponent(saveButton);
 			saveX++;

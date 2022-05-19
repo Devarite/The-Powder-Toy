@@ -32,6 +32,7 @@ class PreviewView: public ui::Window
 	ui::Label * commentWarningLabel;
 	ui::Label * saveNameLabel;
 	ui::Label * authorDateLabel;
+	ui::Label * votesLabel;
 	ui::AvatarButton * avatarButton;
 	ui::Label * pageInfo;
 	ui::Label * saveDescriptionLabel;

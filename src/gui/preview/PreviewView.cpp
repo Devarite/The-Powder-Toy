@@ -120,10 +120,15 @@ PreviewView::PreviewView():
 		AddComponent(avatarButton);
 	}
 
-	viewsLabel = new ui::Label(ui::Point((XRES/2)-80, (YRES/2)+4+15), ui::Point(80, 16), "");
+	viewsLabel = new ui::Label(ui::Point((XRES/2)-80, (YRES/2)+15), ui::Point(80, 16), "");
 	viewsLabel->Appearance.HorizontalAlign = ui::Appearance::AlignRight;
 	viewsLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
 	AddComponent(viewsLabel);
+
+	votesLabel = new ui::Label(ui::Point((XRES / 2) - 80, (YRES / 2) + 27), ui::Point(80, 16), "");
+	votesLabel->Appearance.HorizontalAlign = ui::Appearance::AlignRight;
+	votesLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
+	AddComponent(votesLabel);
 
 	pageInfo = new ui::Label(ui::Point((XRES/2) + 85, Size.Y+1), ui::Point(70, 16), "Page 1 of 1");
 	pageInfo->Appearance.HorizontalAlign = ui::Appearance::AlignCentre;
@@ -425,9 +430,9 @@ void PreviewView::NotifySaveChanged(PreviewModel * sender)
 		saveNameLabel->SetText(save->name);
 		String dateType;
 		if (save->updatedDate == save->createdDate)
-			dateType = "Created:";
+			dateType = "C:";
 		else
-			dateType = "Updated:";
+			dateType = "U:";
 		if (showAvatars)
 		{
 			avatarButton->SetUsername(save->userName);
@@ -437,6 +442,9 @@ void PreviewView::NotifySaveChanged(PreviewModel * sender)
 		{
 			authorDateLabel->SetText("\bgAuthor:\bw " + save->userName.FromUtf8() + " \bg" + dateType + " \bw" + format::UnixtimeToDateMini(save->updatedDate).FromAscii());
 		}
+
+		votesLabel->SetText(String::Build("\bgVotes:\bh ", votesUp, "\bw/\br", votesDown));
+
 		if (Client::Ref().GetAuthUser().UserID && save->userName == Client::Ref().GetAuthUser().Username)
 			userIsAuthor = true;
 		else
@@ -482,6 +490,7 @@ void PreviewView::NotifySaveChanged(PreviewModel * sender)
 	{
 		votesUp = 0;
 		votesDown = 0;
+		votesLabel->SetText("");
 		saveNameLabel->SetText("");
 		authorDateLabel->SetText("");
 		saveDescriptionLabel->SetText("");
