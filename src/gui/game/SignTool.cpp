@@ -70,7 +70,7 @@ SignWindow::SignWindow(SignTool * tool_, Simulation * sim_, int signID_, ui::Poi
 	ui::Button * okayButton = new ui::Button(ui::Point(0, Size.Y-16), ui::Point(Size.X, 16), "OK");
 	okayButton->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	okayButton->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
-	okayButton->Appearance.BorderInactive = (ui::Colour(200, 200, 200));
+	okayButton->Appearance.BorderInactive = (ui::Colour(50, 50, 50));
 	okayButton->SetActionCallback({ [this] {
 		CloseActiveWindow();
 		if(signID==-1 && textField->GetText().length())
@@ -100,7 +100,7 @@ SignWindow::SignWindow(SignTool * tool_, Simulation * sim_, int signID_, ui::Poi
 	justification->SetOption(1);
 	justification->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 
-	textField = new ui::Textbox(ui::Point(8, 25), ui::Point(Size.X-16, 17), "", "[message]");
+	textField = new ui::Textbox(ui::Point(8, 25), ui::Point(Size.X-16, 17), "", "Text");
 	textField->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	textField->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
 	textField->SetLimit(45);
@@ -169,7 +169,7 @@ void SignWindow::DoDraw()
 
 		String text = currentSign.getDisplayText(sim, x, y, w, h);
 		g->clearrect(x, y, w+1, h);
-		g->drawrect(x, y, w+1, h, 192, 192, 192, 255);
+		g->drawrect(x, y, w+1, h, 50, 50, 50, 255);
 		g->drawtext(x+3, y+4, text, 255, 255, 255, 255);
 
 		if (currentSign.ju != sign::None)
@@ -231,7 +231,7 @@ void SignWindow::OnDraw()
 	Graphics * g = GetGraphics();
 
 	g->clearrect(Position.X-2, Position.Y-2, Size.X+3, Size.Y+3);
-	g->drawrect(Position.X, Position.Y, Size.X, Size.Y, 200, 200, 200, 255);
+	g->drawrect(Position.X, Position.Y, Size.X, Size.Y, 50, 50, 50, 255);
 }
 
 VideoBuffer * SignTool::GetIcon(int toolID, int width, int height)

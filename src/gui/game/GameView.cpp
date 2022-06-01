@@ -245,7 +245,7 @@ GameView::GameView():
 	reloadButton->SetActionCallback({ [this] { c->ReloadSim(); }, [this] { c->OpenSavePreview(); } });
 	AddComponent(reloadButton);
 
-	saveSimulationButton = new SplitButton(ui::Point(currentX, Size.Y-16), ui::Point(150, 15), "[untitled simulation]", "", "", 19);
+	saveSimulationButton = new SplitButton(ui::Point(currentX, Size.Y-16), ui::Point(150, 15), "Click here to save", "", "", 19);
 	saveSimulationButton->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	saveSimulationButton->SetIcon(IconSave);
 	currentX+=151;
@@ -266,7 +266,7 @@ GameView::GameView():
 	SetSaveButtonTooltips();
 	AddComponent(saveSimulationButton);
 
-	upVoteButton = new ui::Button(ui::Point(currentX, Size.Y-16), ui::Point(39, 15), "", "Like this save");
+	upVoteButton = new ui::Button(ui::Point(currentX, Size.Y-16), ui::Point(39, 15), "", "Upvote this save");
 	upVoteButton->SetIcon(IconVoteUp);
 	upVoteButton->Appearance.Margin.Top+=2;
 	upVoteButton->Appearance.Margin.Left+=2;
@@ -274,7 +274,7 @@ GameView::GameView():
 	upVoteButton->SetActionCallback({ [this] { c->Vote(1); } });
 	AddComponent(upVoteButton);
 
-	downVoteButton = new ui::Button(ui::Point(currentX, Size.Y-16), ui::Point(15, 15), "", "Dislike this save");
+	downVoteButton = new ui::Button(ui::Point(currentX, Size.Y-16), ui::Point(15, 15), "", "Downvote this save");
 	downVoteButton->SetIcon(IconVoteDown);
 	downVoteButton->Appearance.Margin.Bottom+=2;
 	downVoteButton->Appearance.Margin.Left+=2;
@@ -282,7 +282,7 @@ GameView::GameView():
 	downVoteButton->SetActionCallback({ [this] { c->Vote(-1); } });
 	AddComponent(downVoteButton);
 
-	tagSimulationButton = new ui::Button(ui::Point(currentX, Size.Y-16), ui::Point(227, 15), "[no tags set]", "Add simulation tags");
+	tagSimulationButton = new ui::Button(ui::Point(currentX, Size.Y-16), ui::Point(227, 15), "No tags yet", "Add tags to this save");
 	tagSimulationButton->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tagSimulationButton->SetIcon(IconTag);
 	//currentX+=252;
@@ -295,7 +295,7 @@ GameView::GameView():
 	clearSimButton->SetActionCallback({ [this] { c->ClearSim(); } });
 	AddComponent(clearSimButton);
 
-	loginButton = new SplitButton(ui::Point(Size.X-141, Size.Y-16), ui::Point(92, 15), "[sign in]", "Sign into simulation server", "Edit Profile", 19);
+	loginButton = new SplitButton(ui::Point(Size.X-141, Size.Y-16), ui::Point(92, 15), "Log in", "Login to the simulation server", "Edit Profile", 19);
 	loginButton->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	loginButton->SetIcon(IconLogin);
 	loginButton->SetSplitActionCallback({
@@ -751,9 +751,9 @@ void GameView::NotifyUserChanged(GameModel * sender)
 {
 	if(!sender->GetUser().UserID)
 	{
-		loginButton->SetText("[sign in]");
+		loginButton->SetText("Login");
 		loginButton->SetShowSplit(false);
-		loginButton->SetRightToolTip("Sign in to simulation server");
+		loginButton->SetRightToolTip("Login to the simulation server");
 	}
 	else
 	{
@@ -837,12 +837,12 @@ void GameView::NotifySaveChanged(GameModel * sender)
 			}
 			else
 			{
-				tagSimulationButton->SetText("[no tags set]");
+				tagSimulationButton->SetText("No tags yet");
 			}
 		}
 		else
 		{
-			tagSimulationButton->SetText("[no tags set]");
+			tagSimulationButton->SetText("No tags yet");
 		}
 		currentSaveType = 1;
 		int saveID = sender->GetSave()->GetID();
@@ -864,13 +864,13 @@ void GameView::NotifySaveChanged(GameModel * sender)
 		downVoteButton->Appearance.BackgroundDisabled = (ui::Colour(0, 0, 0));
 		downVoteButton->Appearance.BorderDisabled = ui::Colour(100, 100, 100);
 		tagSimulationButton->Enabled = false;
-		tagSimulationButton->SetText("[no tags set]");
+		tagSimulationButton->SetText("Tags not available for local saves");
 		currentSaveType = 2;
 	}
 	else
 	{
 		saveSimulationButton->SetShowSplit(false);
-		saveSimulationButton->SetText("[untitled simulation]");
+		saveSimulationButton->SetText("Click here to save");
 		reloadButton->Enabled = false;
 		upVoteButton->Enabled = false;
 		upVoteButton->Appearance.BackgroundDisabled = (ui::Colour(0, 0, 0));
@@ -879,7 +879,7 @@ void GameView::NotifySaveChanged(GameModel * sender)
 		downVoteButton->Appearance.BackgroundDisabled = (ui::Colour(0, 0, 0));
 		downVoteButton->Appearance.BorderDisabled = ui::Colour(100, 100, 100),
 		tagSimulationButton->Enabled = false;
-		tagSimulationButton->SetText("[no tags set]");
+		tagSimulationButton->SetText("Save to add tags");
 		currentSaveType = 0;
 	}
 	saveSimulationButton->Enabled = (saveSimulationButtonEnabled && saveReuploadAllowed) || ctrlBehaviour;
@@ -1285,7 +1285,7 @@ void GameView::BeginStampSelection()
 	selectMode = SelectStamp;
 	selectPoint1 = selectPoint2 = ui::Point(-1, -1);
 	isMouseDown = false;
-	buttonTip = "\x0F\xEF\xEF\020Click-and-drag to specify an area to create a stamp (right click = cancel)";
+	buttonTip = "\x0F\xEF\xEF\020Click-and-drag to select an area to create a stamp (right click = cancel)";
 	buttonTipShow = 120;
 }
 
@@ -1483,7 +1483,7 @@ void GameView::OnKeyPress(int key, int scan, bool repeat, bool shift, bool ctrl,
 			selectMode = SelectCopy;
 			selectPoint1 = selectPoint2 = ui::Point(-1, -1);
 			isMouseDown = false;
-			buttonTip = "\x0F\xEF\xEF\020Click-and-drag to specify an area to copy (right click = cancel)";
+			buttonTip = "\x0F\xEF\xEF\020Click-and-drag to select an area to copy (right click = cancel)";
 			buttonTipShow = 120;
 		}
 		break;
@@ -1493,7 +1493,7 @@ void GameView::OnKeyPress(int key, int scan, bool repeat, bool shift, bool ctrl,
 			selectMode = SelectCut;
 			selectPoint1 = selectPoint2 = ui::Point(-1, -1);
 			isMouseDown = false;
-			buttonTip = "\x0F\xEF\xEF\020Click-and-drag to specify an area to copy then cut (right click = cancel)";
+			buttonTip = "\x0F\xEF\xEF\020Click-and-drag to select an area to copy and cut (right click = cancel)";
 			buttonTipShow = 120;
 		}
 		break;
@@ -1670,7 +1670,7 @@ void GameView::OnTick(float dt)
 			tooltip << "Go to save ID:" << str.Substr(3, si.first - 3);
 			break;
 		case sign::Type::Thread:
-			tooltip << "Open forum thread " << str.Substr(3, si.first - 3) << " in browser";
+			tooltip << "Open forum thread " << str.Substr(3, si.first - 3) << " in your browser";
 			break;
 		case sign::Type::Search:
 			tooltip << "Search for " << str.Substr(3, si.first - 3);
@@ -1939,7 +1939,7 @@ void GameView::enableCtrlBehaviour()
 		searchButton->Appearance.BackgroundInactive = searchButton->Appearance.BackgroundHover = ui::Colour(255, 255, 255);
 		searchButton->Appearance.TextInactive = searchButton->Appearance.TextHover = ui::Colour(0, 0, 0);
 
-		searchButton->SetToolTip("Open a simulation from your hard drive.");
+		searchButton->SetToolTip("Open a save from your computer.");
 		if (currentSaveType == 2)
 			saveSimulationButton->SetShowSplit(true);
 	}
@@ -1963,7 +1963,7 @@ void GameView::disableCtrlBehaviour()
 		searchButton->Appearance.BackgroundInactive = ui::Colour(0, 0, 0);
 		searchButton->Appearance.BackgroundHover = ui::Colour(20, 20, 20);
 		searchButton->Appearance.TextInactive = searchButton->Appearance.TextHover = ui::Colour(255, 255, 255);
-		searchButton->SetToolTip("Find & open a simulation. Hold Ctrl to load offline saves.");
+		searchButton->SetToolTip("Find & open a save. Hold Ctrl to load offline saves.");
 		if (currentSaveType == 2)
 			saveSimulationButton->SetShowSplit(false);
 	}
@@ -2223,11 +2223,11 @@ void GameView::OnDraw()
 				else if (type == PT_FILT)
 				{
 					sampleInfo << c->ElementResolve(type, ctype);
-					String filtModes[] = {"set colour", "AND", "OR", "subtract colour", "red shift", "blue shift", "no effect", "XOR", "NOT", "old QRTZ scattering", "variable red shift", "variable blue shift"};
+					String filtModes[] = {"Set colour", "AND", "OR", "Subtract colour", "Red shift", "Blue shift", "No effect", "XOR", "NOT", "Old QRTZ scattering", "Variable red shift", "Variable blue shift"};
 					if (sample.particle.tmp>=0 && sample.particle.tmp<=11)
 						sampleInfo << " (" << filtModes[sample.particle.tmp] << ")";
 					else
-						sampleInfo << " (unknown mode)";
+						sampleInfo << " (Unknown)";
 				}
 				else
 				{
@@ -2370,13 +2370,13 @@ void GameView::OnDraw()
 				fpsInfo << " Parts: " << sample.NumParts;
 		}
 		if (c->GetReplaceModeFlags()&REPLACE_MODE)
-			fpsInfo << " [REPLACE MODE]";
+			fpsInfo << " \boReplace mode";
 		if (c->GetReplaceModeFlags()&SPECIFIC_DELETE)
-			fpsInfo << " [SPECIFIC DELETE]";
+			fpsInfo << " \boSpecific delete mode";
 		if (ren && ren->GetGridSize())
-			fpsInfo << " [GRID: " << ren->GetGridSize() << "]";
+			fpsInfo << " \boGrid: " << ren->GetGridSize() << " enabled";
 		if (ren && ren->findingElement)
-			fpsInfo << " [FIND]";
+			fpsInfo << " \boFind mode";
 
 		int textWidth = Graphics::textwidth(fpsInfo.Build());
 		int alpha = 255-introText*5;

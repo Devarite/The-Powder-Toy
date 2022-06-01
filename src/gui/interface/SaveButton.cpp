@@ -201,13 +201,13 @@ void SaveButton::Draw(const Point& screenPos)
 		{
 			if(isMouseInside)
 			{
-				g->drawrect(screenPos.X-3+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 210, 230, 255, 255);
-				g->drawrect(screenPos.X-4+thumbBoxSize.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, 7, thumbBoxSize.Y, 210, 230, 255, 255);
+				g->drawrect(screenPos.X-3+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 150, 150, 255, 255);
+				g->drawrect(screenPos.X-4+thumbBoxSize.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, 7, thumbBoxSize.Y, 150, 150, 255, 255);
 			}
 			else
 			{
-				g->drawrect(screenPos.X-3+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 180, 180, 180, 255);
-				g->drawrect(screenPos.X-4+thumbBoxSize.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, 7, thumbBoxSize.Y, 180, 180, 180, 255);
+				g->drawrect(screenPos.X-3+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 50, 50, 50, 255);
+				g->drawrect(screenPos.X-4+thumbBoxSize.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, 7, thumbBoxSize.Y, 50, 50, 50, 50);
 			}
 
 			g->fillrect(screenPos.X-3+thumbBoxSize.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+1+(Size.Y-20-thumbBoxSize.Y)/2, 5, (thumbBoxSize.Y+1)/2-1, 0, 107, 10, 255);
@@ -219,7 +219,7 @@ void SaveButton::Draw(const Point& screenPos)
 		else
 		{
 			if(isMouseInside)
-				g->drawrect(screenPos.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 210, 230, 255, 255);
+				g->drawrect(screenPos.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 200, 200, 255, 255);
 			else
 				g->drawrect(screenPos.X+(Size.X-thumbBoxSize.X)/2, screenPos.Y+(Size.Y-21-thumbBoxSize.Y)/2, thumbBoxSize.X, thumbBoxSize.Y, 180, 180, 180, 255);
 		}
@@ -237,19 +237,19 @@ void SaveButton::Draw(const Point& screenPos)
 		{
 			int x = screenPos.X-7+(Size.X-thumbBoxSize.X)/2+thumbBoxSize.X-Graphics::textwidth(votesBackground);
 			int y = screenPos.Y-23+(Size.Y-thumbBoxSize.Y)/2+thumbBoxSize.Y;
-			g->drawtext(x, y, votesBackground, 16, 72, 16, 255);
-			g->drawtext(x, y, votesBackground2, 192, 192, 192, 255);
+			g->drawtext(x, y, votesBackground, 16, 16, 16, 255);
+			g->drawtext(x, y, votesBackground2, 100, 100, 100, 255);
 			g->drawtext(x+3, y, votesString, 255, 255, 255, 255);
 		}
-		if (isMouseInsideHistory && showVotes)
+		if (showVotes)//isMouseInsideHistory && showVotes)
 		{
 			int x = screenPos.X;
 			int y = screenPos.Y-15+(Size.Y-thumbBoxSize.Y)/2+thumbBoxSize.Y;
 			g->fillrect(x+1, y+1, 7, 8, 255, 255, 255, 255);
 			if (isMouseInsideHistory) {
-				g->drawtext(x, y, 0xE026, 200, 100, 80, 255);
+				g->drawtext(x, y, 0xE026, 255, 150, 120, 255);
 			} else {
-				g->drawtext(x, y, 0xE026, 160, 70, 50, 255);
+				g->drawtext(x, y, 0xE026, 200, 100, 80, 255);
 			}
 		}
 		if (!save->GetPublished())

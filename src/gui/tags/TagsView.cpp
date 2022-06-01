@@ -25,7 +25,7 @@ TagsView::TagsView():
 	AddComponent(closeButton);
 	SetCancelButton(closeButton);
 
-	tagInput = new ui::Textbox(ui::Point(8, Size.Y-40), ui::Point(Size.X-60, 16), "", "[new tag]");
+	tagInput = new ui::Textbox(ui::Point(8, Size.Y-40), ui::Point(Size.X-60, 16), "", "Tag");
 	tagInput->Appearance.icon = IconTag;
 	tagInput->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tagInput->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
@@ -119,9 +119,9 @@ void TagsView::OnKeyPress(int key, int scan, bool repeat, bool shift, bool ctrl,
 
 void TagsView::addTag()
 {
-	if (tagInput->GetText().length() < 4)
+	if (tagInput->GetText().length() < 3)
 	{
-		new ErrorMessage("Tag not long enough", "Must be at least 4 letters");
+		new ErrorMessage("Tag not long enough", "Must be at least 3 letters");
 		return;
 	}
 	try

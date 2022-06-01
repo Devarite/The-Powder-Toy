@@ -30,7 +30,7 @@ OptionsView::OptionsView():
 		c->Size.X = Size.X - c->Position.X - 12;
 	};
 	
-	ui::Label * tempLabel = new ui::Label(ui::Point(4, 1), ui::Point(Size.X-8, 22), "Simulation Options");
+	ui::Label * tempLabel = new ui::Label(ui::Point(4, 1), ui::Point(Size.X-8, 22), "Options");
 	tempLabel->SetTextColour(style::Colour::InformationTitle);
 	tempLabel->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tempLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
@@ -45,7 +45,7 @@ OptionsView::OptionsView():
 
 		void Draw(const ui::Point& screenPos) override
 		{
-			GetGraphics()->drawrect(screenPos.X, screenPos.Y, Size.X, Size.Y, 255, 255, 255, 180);
+			GetGraphics()->drawrect(screenPos.X, screenPos.Y, Size.X, Size.Y, 50, 50, 50, 180);
 		}		
 	};
 	
@@ -57,48 +57,48 @@ OptionsView::OptionsView():
 	
 	AddComponent(scrollPanel);
 
-	heatSimulation = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Heat simulation \bgIntroduced in version 34", "");
+	heatSimulation = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Temperature simulation \bgPreformance impact: \byNone", "");
 	autowidth(heatSimulation);
 	heatSimulation->SetActionCallback({ [this] { c->SetHeatSimulation(heatSimulation->GetChecked()); } });
 	scrollPanel->AddChild(heatSimulation);
 	currentY+=14;
-	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgCan cause odd behaviour when disabled");
+	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgCan cause bizzare behaviour when this is disabled");
 	autowidth(tempLabel);
 	tempLabel->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tempLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
 	scrollPanel->AddChild(tempLabel);
 
 	currentY+=16;
-	ambientHeatSimulation = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Ambient heat simulation \bgIntroduced in version 50", "");
+	ambientHeatSimulation = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Ambient temperature transfer \bgPreformance impact: \byLow", "");
 	autowidth(ambientHeatSimulation);
 	ambientHeatSimulation->SetActionCallback({ [this] { c->SetAmbientHeatSimulation(ambientHeatSimulation->GetChecked()); } });
 	scrollPanel->AddChild(ambientHeatSimulation);
 	currentY+=14;
-	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgCan cause odd / broken behaviour with many saves");
+	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgHeat will travel through the air when this is enabled.");
 	autowidth(tempLabel);
 	tempLabel->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tempLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
 	scrollPanel->AddChild(tempLabel);
 
 	currentY+=16;
-	newtonianGravity = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Newtonian gravity \bgIntroduced in version 48", "");
+	newtonianGravity = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Newtonian gravity \bgPreformance impact: \boMedium", "");
 	autowidth(newtonianGravity);
 	newtonianGravity->SetActionCallback({ [this] { c->SetNewtonianGravity(newtonianGravity->GetChecked()); } });
 	scrollPanel->AddChild(newtonianGravity);
 	currentY+=14;
-	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgMay cause poor performance on older computers");
+	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgEnables gravity wells.");
 	autowidth(tempLabel);
 	tempLabel->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tempLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
 	scrollPanel->AddChild(tempLabel);
 
 	currentY+=16;
-	waterEqualisation = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Water equalisation \bgIntroduced in version 61", "");
+	waterEqualisation = new ui::Checkbox(ui::Point(8, currentY), ui::Point(1, 16), "Liquid equalisation \bgPreformance impact: \brHigh", "");
 	autowidth(waterEqualisation);
 	waterEqualisation->SetActionCallback({ [this] { c->SetWaterEqualisation(waterEqualisation->GetChecked()); } });
 	scrollPanel->AddChild(waterEqualisation);
 	currentY+=14;
-	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgMay cause poor performance with a lot of water");
+	tempLabel = new ui::Label(ui::Point(24, currentY), ui::Point(1, 16), "\bgLiquids behave more realisticly.");
 	autowidth(tempLabel);
 	tempLabel->Appearance.HorizontalAlign = ui::Appearance::AlignLeft;
 	tempLabel->Appearance.VerticalAlign = ui::Appearance::AlignMiddle;
@@ -339,7 +339,7 @@ OptionsView::OptionsView():
 	} });
 	scrollPanel->AddChild(migrationButton);
 
-	ui::Button * tempButton = new ui::Button(ui::Point(0, Size.Y-16), ui::Point(Size.X, 16), "OK");
+	ui::Button * tempButton = new ui::Button(ui::Point(0, Size.Y-16), ui::Point(Size.X, 16), "Done");
 	tempButton->SetActionCallback({ [this] { c->Exit(); } });
 	AddComponent(tempButton);
 	SetCancelButton(tempButton);

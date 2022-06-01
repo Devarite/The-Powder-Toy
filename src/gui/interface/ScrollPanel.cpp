@@ -67,8 +67,8 @@ void ScrollPanel::Draw(const Point& screenPos)
 			scrollPos = float(Size.Y-scrollHeight)*(float(offsetY)/float(maxOffset.Y));
 		}
 
-		g->fillrect(screenPos.X+(Size.X-scrollBarWidth), screenPos.Y, scrollBarWidth, Size.Y, 125, 125, 125, 100);
-		g->fillrect(screenPos.X+(Size.X-scrollBarWidth), screenPos.Y+int(scrollPos), scrollBarWidth, int(scrollHeight)+1, 255, 255, 255, 255);
+		g->fillrect(screenPos.X+(Size.X-scrollBarWidth), screenPos.Y, scrollBarWidth, Size.Y, 50, 50, 50, 100);
+		g->fillrect(screenPos.X+(Size.X-scrollBarWidth), screenPos.Y+int(scrollPos), scrollBarWidth, int(scrollHeight)+1, 80, 80, 80, 255);
 	}
 }
 

@@ -273,10 +273,10 @@ void PreviewView::DoDraw()
 	if (c->GetDoOpen())
 	{
 		g->fillrect(Position.X+(Size.X/2)-101, Position.Y+(Size.Y/2)-26, 202, 52, 0, 0, 0, 210);
-		g->drawrect(Position.X+(Size.X/2)-100, Position.Y+(Size.Y/2)-25, 200, 50, 255, 255, 255, 180);
+		g->drawrect(Position.X+(Size.X/2)-100, Position.Y+(Size.Y/2)-25, 200, 50, 50, 50, 50, 180);
 		g->drawtext(Position.X+(Size.X/2)-(Graphics::textwidth("Loading save...")/2), Position.Y+(Size.Y/2)-5, "Loading save...", style::Colour::InformationTitle.Red, style::Colour::InformationTitle.Green, style::Colour::InformationTitle.Blue, 255);
 	}
-	g->drawrect(Position.X, Position.Y, Size.X, Size.Y, 255, 255, 255, 255);
+	g->drawrect(Position.X, Position.Y, Size.X, Size.Y, 50, 50, 50, 255);
 
 }
 
@@ -292,8 +292,8 @@ void PreviewView::OnDraw()
 	{
 		g->draw_image(savePreview, (Position.X+1)+(((XRES/2)-savePreview->Width)/2), (Position.Y+1)+(((YRES/2)-savePreview->Height)/2), 255);
 	}
-	g->drawrect(Position.X, Position.Y, (XRES/2)+1, (YRES/2)+1, 255, 255, 255, 100);
-	g->draw_line(Position.X+XRES/2, Position.Y+1, Position.X+XRES/2, Position.Y+Size.Y-2, 200, 200, 200, 255);
+	g->drawrect(Position.X, Position.Y, (XRES/2)+1, (YRES/2)+1, 50, 50, 50, 200);
+	g->draw_line(Position.X+XRES/2, Position.Y+1, Position.X+XRES/2, Position.Y+Size.Y-2, 50, 50, 50, 255);
 
 	if(votesUp || votesDown)
 	{
